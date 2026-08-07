@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+python-multipart
+websockets
+soundfile
+torch
+torchaudio
+torchvision
+numpy
