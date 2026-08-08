@@ -136,15 +136,8 @@ def process_audio_chunk(audio_data: bytes, sample_rate: int):
     return sum(scores)/len(scores) if scores else 0.0
 
 def get_verdict(score: float, threshold: float = DECISION_THRESHOLD):
-    if score < 0.1:
-        # Out-Of-Distribution Domain (Real-world mic or Kaggle)
-        # The AI model outputs tiny scores (~1e-6) for noisy real mics
-        # and slightly higher scores (~1e-2) for cleaner synthetic TTS.
-        # Therefore, for OOD, lower = more real!
-        # If no threshold is passed, use a default OOD threshold of 0.0001
-        actual_threshold = threshold if threshold < 0.1 else 0.0001
-        return "Real" if score <= actual_threshold else "Fake"
-    else:
-        # In-Domain (ASVspoof)
-        # Real = ~0.9, Fake = ~0.1
-        return "Real" if score >= threshold else "Fake"
+    """
+    Returns 'Real' if the score is greater than or equal to the threshold, 
+    otherwise returns 'Fake'.
+    """
+    return "Real" if score >= threshold else "Fake"

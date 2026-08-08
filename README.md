@@ -50,7 +50,7 @@ The system features robust file uploads with timeline breakdowns, real-time stre
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/mlvanguards/fraud-audio-detection.git
-   cd fraud-audio-detection
+   cd VoiceCloneScamShield
    ```
 
 2. **Set up the PostgreSQL Database:**
