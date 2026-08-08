@@ -96,7 +96,7 @@ export default function DetectPage() {
 
     try {
       // Assuming backend runs on 8000 locally
-      const res = await fetch("http://localhost:8000/api/detect", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/detect`, {
         method: "POST",
         body: formData,
       });
@@ -135,7 +135,7 @@ export default function DetectPage() {
     formData.append("threshold", "0.0"); // Threshold doesn't matter for calibration
 
     try {
-      const res = await fetch("http://localhost:8000/api/detect", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/detect`, {
         method: "POST",
         body: formData,
       });
@@ -155,7 +155,7 @@ export default function DetectPage() {
       formData2.append("file", file);
       formData2.append("threshold", newThreshold.toString());
       
-      const res2 = await fetch("http://localhost:8000/api/detect", { method: "POST", body: formData2 });
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/detect`, { method: "POST", body: formData2 });
       setResult(await res2.json());
       setFeedbackSent(false);
 

@@ -67,7 +67,13 @@ export default function LivePage() {
       
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
       const hostname = window.location.hostname || 'localhost';
-      wsRef.current = new WebSocket(`${protocol}//${hostname}:8000/api/live`);
+      
+      let wsUrl = `${protocol}//${hostname}:8000/api/live`;
+      if (process.env.NEXT_PUBLIC_API_URL) {
+        wsUrl = process.env.NEXT_PUBLIC_API_URL.replace(/^http/, 'ws') + '/api/live';
+      }
+      
+      wsRef.current = new WebSocket(wsUrl);
       
       wsRef.current.onopen = () => {
         addLog("WEBSOCKET CONNECTED. PORT 8000.");
