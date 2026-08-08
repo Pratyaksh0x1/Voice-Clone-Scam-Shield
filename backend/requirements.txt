@@ -9,3 +9,5 @@ torch
 torchaudio
 torchvision
 numpy
+psycopg2-binary
+python-dotenv
