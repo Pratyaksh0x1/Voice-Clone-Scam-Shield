@@ -20,7 +20,7 @@ Voice cloning technology has made it trivial to replicate voices with just a few
 
 This platform solves this by analyzing the micro-acoustic signatures and artifacts left behind by generative models. Utilizing a deep neural network (ResNet18 + Bi-GRU + Attention), it detects synthetic audio with high accuracy. 
 
-The system features robust file uploads with timeline breakdowns, real-time streaming WebSocket detection, advanced code-switching NLP (Hinglish), and an **Adaptive OOD (Out of Distribution) Engine** to intelligently calibrate to real-world microphones.
+The system features robust file uploads with timeline breakdowns, real-time streaming WebSocket detection, and an **Adaptive OOD (Out of Distribution) Engine** to intelligently calibrate to real-world microphones.
 
 ## Architecture
 
@@ -43,7 +43,7 @@ The system features robust file uploads with timeline breakdowns, real-time stre
 - **File Upload Analysis (`/detect`):** Upload `.wav`, `.flac`, `.mp3`, or `.m4a` files. Get an overall verdict, confidence score, and a timeline breakdown showing which specific 4-second segments contain synthetic artifacts.
 - **Auto-Calibration:** Uses one-click machine learning calibration to dynamically learn your specific microphone's acoustic profile and adjust the threshold baseline.
 - **Live Intercept (`/live`):** Capture microphone audio directly from the browser and stream it over WebSockets to receive a live, rolling confidence matrix chart and a scrolling neural processing terminal.
-- **Hinglish NLP Integration:** The Live Monitor features explicit `hi-IN` NLP transcription support that perfectly captures code-switched Hindi-English (Hinglish) spoken in Indian scam calls.
+- **Hindi NLP Integration:** The Live Monitor features explicit `hi-IN` NLP transcription support that perfectly captures spoken Hindi in Indian scam calls.
 
 ## Installation & Setup
 
@@ -112,7 +112,8 @@ fraud-audio-detection/
 │   ├── main.py         # API entrypoint and routes
 │   ├── model_service.py# PyTorch inference and Adaptive OOD logic
 │   ├── database.py     # PostgreSQL configuration & dotenv loading
-│   └── models.py       # SQLAlchemy database schemas
+│   ├── models.py       # SQLAlchemy database schemas
+│   └── train.py        # Local PyTorch fine-tuning script
 ├── frontend/           # Next.js Web Application
 │   ├── public/         # Static assets and HUD background videos
 │   ├── src/app/        # Next.js Pages (Landing, Detect, Live)
@@ -125,7 +126,12 @@ fraud-audio-detection/
 
 ## Benchmark Dataset
 
-We have included a scaffolded directory at `indian-audio-benchmark/` specifically designed to test the platform against Hindi, Indian English, and Hinglish deepfakes. It includes 30 pre-generated Synthetic TTS audio files for immediate demo testing.
+We have included a scaffolded directory at `indian-audio-benchmark/` specifically designed to test the platform against Hindi and Indian English deepfakes. It includes pre-generated Synthetic TTS audio files for immediate demo testing.
+
+You can fine-tune the model on custom benchmark data using the included `train.py` script:
+```bash
+uv run python backend/train.py
+```
 
 ## License
 

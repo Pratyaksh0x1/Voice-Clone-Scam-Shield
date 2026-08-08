@@ -7,10 +7,8 @@ def setup():
     dirs = [
         "indian-audio-benchmark/real/hindi",
         "indian-audio-benchmark/real/indian_english",
-        "indian-audio-benchmark/real/hinglish",
         "indian-audio-benchmark/fake/hindi",
-        "indian-audio-benchmark/fake/indian_english",
-        "indian-audio-benchmark/fake/hinglish"
+        "indian-audio-benchmark/fake/indian_english"
     ]
     for d in dirs:
         os.makedirs(d, exist_ok=True)
@@ -52,19 +50,6 @@ def setup():
         "Thank you for banking with us."
     ]
 
-    hinglish_texts = [
-        "Hello sir, main SBI se bol raha hoon.",
-        "Aapka KYC update karna hai.",
-        "OTP share kar dijiye.",
-        "Payment receive hua kya?",
-        "Aapka account block ho sakta hai.",
-        "Please apna PAN number verify kariye.",
-        "Main customer support se bol raha hoon.",
-        "Ye last reminder hai.",
-        "Aapka refund process ho gaya hai.",
-        "Verification complete kar dijiye."
-    ]
-
     def generate_fake(texts, lang, tld, folder_name, prefix):
         for i, text in enumerate(texts):
             filename = f"indian-audio-benchmark/fake/{folder_name}/fake_{prefix}_{str(i+1).zfill(3)}.mp3"
@@ -79,11 +64,7 @@ def setup():
     print("Generating Indian English Fake Audios (Synthetic TTS)...")
     generate_fake(english_texts, lang="en", tld="co.in", folder_name="indian_english", prefix="english")
     
-    print("Generating Hinglish Fake Audios (Synthetic TTS)...")
-    # Using Hindi TTS for Hinglish gives that code-switched synthetic vibe
-    generate_fake(hinglish_texts, lang="hi", tld="co.in", folder_name="hinglish", prefix="hinglish")
-
-    print("Done! Check the indian-audio-benchmark folder.")
+    print("Benchmark dataset generation complete!")
 
 if __name__ == "__main__":
     setup()
