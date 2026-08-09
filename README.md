@@ -3,9 +3,9 @@
 A state-of-the-art web platform for detecting fraudulent, synthetic, and cloned audio recordings in real-time. This project is a production-grade commercial application featuring a high-performance Next.js frontend, a FastAPI backend, and a PyTorch neural network capable of detecting AI-generated voices.
 
 
-### 🚀 Live Demo
+### 🚀 Live 
 
-👉 **[Try Demo](https://voice-clone-scam-shield-5rk4.vercel.app/)**
+👉 **[Try Live](https://voice-clone-scam-shield-eight.vercel.app/)**
 
 Experience the Voice Clone Scam Shield live and analyze synthetic/AI-generated voices in real time.
 
