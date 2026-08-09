@@ -137,7 +137,7 @@ def process_audio_chunk(audio_data: bytes, sample_rate: int):
 
 def get_verdict(score: float, threshold: float = DECISION_THRESHOLD):
     """
-    Returns 'Real' if the score is greater than or equal to the threshold, 
-    otherwise returns 'Fake'.
+    Returns 'Fake' if the score is greater than or equal to the threshold, 
+    otherwise returns 'Real'.
     """
-    return "Real" if score >= threshold else "Fake"
+    return "Fake" if score >= threshold else "Real"

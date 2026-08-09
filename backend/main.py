@@ -109,11 +109,7 @@ async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(get_db)
                 # We expect the frontend to send valid WAV chunks or raw PCM.
                 # If they send WebM audio from MediaRecorder, we'd need to convert it first.
                 # For simplicity here, assuming process_audio_chunk can handle it.
-                raw_score = process_audio_chunk(data, sample_rate=16000)
-                
-                # Adaptive OOD Engine: Invert scoring logic for live mic
-                # Real-world noisy mics tend to score low (Fake) on the clean model.
-                score = 1.0 - raw_score
+                score = process_audio_chunk(data, sample_rate=16000)
                 
                 chunk_scores.append(score)
                 rolling_avg = sum(chunk_scores[-5:]) / len(chunk_scores[-5:])

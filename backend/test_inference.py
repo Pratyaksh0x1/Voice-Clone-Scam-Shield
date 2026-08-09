@@ -32,7 +32,7 @@ def test_inference(path):
     
     mean_score = sum(scores) / len(scores) if scores else 0
     print(f"Mean Score: {mean_score:.4f}")
-    print(f"Verdict (Threshold 0.4): {'Real' if mean_score >= 0.4 else 'Fake'}")
+    print(f"Verdict (Threshold 0.4): {'Fake' if mean_score >= 0.4 else 'Real'}")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
