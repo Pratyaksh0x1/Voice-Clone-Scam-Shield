@@ -220,10 +220,10 @@ export default function LandingPage() {
         
         <div className="relative z-10 max-w-4xl mx-auto px-6">
           <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter">
-            SECURE YOUR <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-muted-foreground">INFRASTRUCTURE</span>
+            SECURE YOUR <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-muted-foreground">CALLS</span>
           </h2>
           <p className="text-xl text-muted-foreground mb-12 font-light max-w-2xl mx-auto">
-            Deploy our models on-premise or integrate via our ultra-low latency WebSocket API. Protect your operations today.
+            FROM VOICE CLONE SCAMS
           </p>
           <div className="flex justify-center">
             <Link 
