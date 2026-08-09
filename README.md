@@ -57,8 +57,8 @@ The system features robust file uploads with timeline breakdowns, real-time stre
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/mlvanguards/fraud-audio-detection.git
-   cd VoiceCloneScamShield
+   git clone https://github.com/Pratyaksh0x1/Voice-Clone-Scam-Shield.git
+   cd Voice-Clone-Scam-Shield
    ```
 
 2. **Set up the PostgreSQL Database:**
@@ -115,7 +115,7 @@ The web platform will be available at `http://localhost:3000`.
 ## Project Structure
 
 ```text
-fraud-audio-detection/
+Voice-Clone-Scam-Shield/
 ├── backend/            # FastAPI Application & ML Inference
 │   ├── main.py         # API entrypoint and routes
 │   ├── model_service.py# PyTorch inference and Adaptive OOD logic
