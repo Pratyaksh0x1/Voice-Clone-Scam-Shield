@@ -24,7 +24,7 @@ app.add_middleware(
 @app.post("/api/detect", response_model=DetectionResponse, responses={400: {"model": ErrorResponse}})
 async def detect_file(
     file: UploadFile = File(...), 
-    threshold: float = Form(0.2),
+    threshold: float = Form(0.5),
     db: Session = Depends(get_db)
 ):
     if not file.filename.endswith(('.wav', '.flac', '.mp3', '.m4a')):

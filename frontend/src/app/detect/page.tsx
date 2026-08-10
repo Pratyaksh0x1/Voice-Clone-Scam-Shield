@@ -27,9 +27,8 @@ export default function DetectPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   
   // Adaptability Features
-  const [threshold, setThreshold] = useState<number>(0.2); // Default to our new forgiving threshold
+  const threshold = 0.5; // Fixed threshold
   const [feedbackSent, setFeedbackSent] = useState(false);
-  const [isCalibrating, setIsCalibrating] = useState(false);
   
   const waveformRef = useRef<HTMLDivElement>(null);
   const wavesurfer = useRef<WaveSurfer | null>(null);
@@ -124,47 +123,7 @@ export default function DetectPage() {
     }
   };
 
-  const handleCalibrate = async () => {
-    if (!file) return;
-    setIsCalibrating(true);
-    setError(null);
-    setResult(null);
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("threshold", "0.0"); // Threshold doesn't matter for calibration
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/detect`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        throw new Error("Calibration failed.");
-      }
-
-      const data: DetectionResponse = await res.json();
-      // The score of their *real* voice becomes the new threshold baseline
-      // We subtract a tiny margin so their voice reliably passes
-      const newThreshold = Math.max(0.00001, data.overall_confidence * 0.8);
-      setThreshold(newThreshold);
-      
-      // Auto-analyze with the new learned threshold
-      const formData2 = new FormData();
-      formData2.append("file", file);
-      formData2.append("threshold", newThreshold.toString());
-      
-      const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/detect`, { method: "POST", body: formData2 });
-      setResult(await res2.json());
-      setFeedbackSent(false);
-
-    } catch (err: any) {
-      setError(err.message || "Calibration error.");
-    } finally {
-      setIsCalibrating(false);
-    }
-  };
 
   useEffect(() => {
     return () => {
@@ -236,44 +195,17 @@ export default function DetectPage() {
 
             {/* Action */}
             {!result && !error && (
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-black/20 p-4 rounded-lg border border-border">
-                <div className="w-full sm:w-1/2">
-                  <label className="text-sm font-medium mb-2 flex justify-between">
-                    <span>Model Sensitivity (Threshold)</span>
-                    <span className="font-mono">{threshold.toFixed(2)}</span>
-                  </label>
-                  <input 
-                    type="range" 
-                    min="0.00000" 
-                    max="1.00000" 
-                    step="0.00001" 
-                    value={threshold} 
-                    onChange={(e) => setThreshold(parseFloat(e.target.value))}
-                    className="w-full cursor-pointer accent-primary"
-                  />
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Adjust this if the model is misclassifying your specific dataset. 
-                  </p>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <button
-                    onClick={handleCalibrate}
-                    disabled={isProcessing || isCalibrating}
-                    className="px-6 py-2 rounded-md font-medium flex items-center justify-center gap-2 transition-all bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-white/10 text-sm"
-                  >
-                    {isCalibrating ? "Learning Profile..." : "Auto-Calibrate to File"}
-                  </button>
+              <div className="flex items-center justify-center bg-black/20 p-6 rounded-lg border border-border">
                   <button
                     onClick={handleAnalyze}
-                    disabled={isProcessing || isCalibrating}
-                    className={`px-6 py-3 rounded-md font-medium flex items-center justify-center gap-2 transition-all ${
+                    disabled={isProcessing}
+                    className={`w-full max-w-md px-6 py-3 rounded-md font-medium flex items-center justify-center gap-2 transition-all ${
                       isProcessing 
                         ? "bg-primary/50 text-primary-foreground/70 cursor-not-allowed" 
                         : "bg-primary text-primary-foreground hover:bg-primary/90"
                     }`}
                   >
-                    {isProcessing && !isCalibrating ? (
+                    {isProcessing ? (
                       <>
                         <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin"></div>
                         Processing...
@@ -282,7 +214,6 @@ export default function DetectPage() {
                       <>Analyze Audio</>
                     )}
                   </button>
-                </div>
               </div>
             )}
             

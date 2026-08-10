@@ -15,17 +15,17 @@ from backend.model_service import preprocess_waveform, imagenet_mean, imagenet_s
 class AudioDataset(Dataset):
     def __init__(self, real_dir, fake_dir):
         self.samples = []
-        # Label 1.0 for Real
+        # Label 0.0 for Real (since get_verdict uses score >= threshold as Fake)
         for root, _, files in os.walk(real_dir):
             for file in files:
                 if file.endswith(('.wav', '.flac', '.mp3', '.m4a')):
-                    self.samples.append((os.path.join(root, file), 1.0))
+                    self.samples.append((os.path.join(root, file), 0.0))
         
-        # Label 0.0 for Fake
+        # Label 1.0 for Fake
         for root, _, files in os.walk(fake_dir):
             for file in files:
                 if file.endswith(('.wav', '.flac', '.mp3', '.m4a')):
-                    self.samples.append((os.path.join(root, file), 0.0))
+                    self.samples.append((os.path.join(root, file), 1.0))
                     
     def __len__(self):
         return len(self.samples)
