@@ -26,9 +26,9 @@ Experience the Voice Clone Scam Shield live and analyze synthetic/AI-generated v
 
 Voice cloning technology has made it trivial to replicate voices with just a few seconds of audio, fueling a billion-dollar fraud industry. Human operators and traditional security measures cannot reliably distinguish synthetic voices from real ones.
 
-This platform solves this by analyzing the micro-acoustic signatures and artifacts left behind by generative models. Utilizing a deep neural network (ResNet18 + Bi-GRU + Attention), it detects synthetic audio with high accuracy. 
+This platform solves this by analyzing the micro-acoustic signatures and artifacts left behind by generative models. Utilizing a deep neural network (ResNet18 + Bi-GRU + Attention), it detects synthetic audio with high accuracy, including high-quality deepfakes like ElevenLabs. 
 
-The system features robust file uploads with timeline breakdowns, real-time streaming WebSocket detection, and an **Adaptive OOD (Out of Distribution) Engine** to intelligently calibrate to real-world microphones.
+The system features robust file uploads with timeline breakdowns and real-time streaming WebSocket detection.
 
 ## Architecture
 
@@ -42,14 +42,13 @@ The system features robust file uploads with timeline breakdowns, real-time stre
   - Fully integrated with **PostgreSQL** (e.g. Neon Serverless Postgres) via SQLAlchemy.
 - **Machine Learning Engine:**
   - Pre-trained ResNet18 backbone with Bi-GRU.
-  - **Adaptive OOD Engine**: Dynamically inverts scoring logic to reliably distinguish noisy real-world microphones from clean synthetic TTS engines out-of-the-box.
+  - Fine-tuned specifically to detect ultra-realistic deepfakes (e.g., ElevenLabs) alongside standard TTS.
   - Native `soundfile` parsing for robust multi-format audio handling.
 
 ## Key Features
 
 - **3D Landing Page:** Immersive, animated introductory experience explaining the threat and solution with embedded background video.
 - **File Upload Analysis (`/detect`):** Upload `.wav`, `.flac`, `.mp3`, or `.m4a` files. Get an overall verdict, confidence score, and a timeline breakdown showing which specific 4-second segments contain synthetic artifacts.
-- **Auto-Calibration:** Uses one-click machine learning calibration to dynamically learn your specific microphone's acoustic profile and adjust the threshold baseline.
 - **Live Intercept (`/live`):** Capture microphone audio directly from the browser and stream it over WebSockets to receive a live, rolling confidence matrix chart and a scrolling neural processing terminal.
 - **Hindi NLP Integration:** The Live Monitor features explicit `hi-IN` NLP transcription support that perfectly captures spoken Hindi in Indian scam calls.
 
@@ -134,9 +133,9 @@ Voice-Clone-Scam-Shield/
 
 ## Benchmark Dataset
 
-We have included a scaffolded directory at `indian-audio-benchmark/` specifically designed to test the platform against Hindi and Indian English deepfakes. It includes pre-generated Synthetic TTS audio files for immediate demo testing.
+We have included a scaffolded directory at `indian-audio-benchmark/` specifically designed to test the platform against Hindi and Indian English deepfakes. It includes pre-generated Synthetic TTS audio files as well as high-quality ElevenLabs samples for immediate demo testing.
 
-You can fine-tune the model on custom benchmark data using the included `train.py` script:
+You can also download extensive datasets from platforms like Kaggle, place them in the respective `real` and `fake` folders, and easily fine-tune the model using the included `train.py` script:
 ```bash
 uv run python backend/train.py
 ```
