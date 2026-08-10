@@ -119,7 +119,6 @@ export default function DetectPage() {
       setError(err.message || "An unexpected error occurred.");
     } finally {
       setIsProcessing(false);
-      setIsCalibrating(false);
     }
   };
 
