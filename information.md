@@ -32,7 +32,7 @@ We developed a system to detect synthetics and stop deepfakes and voice clones i
 - **Evolving Threats**: As generative AI models improve, the detection neural network will require continuous retraining to identify new types of synthetic artifacts.
 
 ## Team Contribution
-**Team Members & Roles (60:20:20 Split):**
+**Team Members & Roles :**
 
 - **Pratyaksh Tomar (Lead ML Engineer & System Architect)**
   - Architected the core ResNet18 + Bi-GRU neural engine and Attention pooling mechanism.
